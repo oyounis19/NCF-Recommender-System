@@ -1,15 +1,15 @@
 # NCF Recommender System with PyTorch: A Deep Dive
 
-Welcome to the NCF Recommender System with PyTorch! In this project, we'll build an end-to-end Recommender System using an adjusted version of Neural Collaborative Filtering (NCF) with PyTorch. We'll train the model on the [MovieLens-1M](https://grouplens.org/datasets/movielens/1m/) dataset 🎥 and serve it using FastAPI 🚀.
+Welcome to the NCF Recommender System with PyTorch! In this project, An end-to-end Recommender System using an adjusted version of Neural Collaborative Filtering (NCF) with PyTorch. the model is trained on the [MovieLens-1M](https://grouplens.org/datasets/movielens/1m/) dataset 🎥, served using FastAPI, hosted on Heroku 🚀.
 
-## Try it out!
+## 🌟 Try it out!
 
 - Website: [https://ncf-recommender.herokuapp.com/](https://ncf-recommender.herokuapp.com/)
 - API: [https://ncf-recommender.herokuapp.com/docs](https://ncf-recommender.herokuapp.com/docs)
 
-## Notebook on Kaggle
+## 📓 Notebook on Kaggle
 
-- [NCF Recommender System with PyTorch: A Deep Dive](https://www.kaggle.com/code/oyounis/ncf-recommender-system)
+- Notebook: [NCF Recommender System with PyTorch: A Deep Dive](https://www.kaggle.com/code/oyounis/ncf-recommender-system)
 
 ## 🌐 Overview
 
@@ -17,7 +17,7 @@ Welcome to the NCF Recommender System with PyTorch! In this project, we'll build
 
 - The adjusted architecture of NCF enables the input of the user/item features besides the user/item IDs.
 
-- A recommender system is not just a ranking model, but a pipeline: Items Retrieval, Filtering, Ranking, and Ordering. (All explained in the notebook)
+- A recommender system is not just a ranking model, but a pipeline: Items Retrieval, Filtering, Ranking, and Ordering. (Detailed explanation in the notebook)
 
 ## 📚 Project Structure
 
@@ -41,6 +41,6 @@ Welcome to the NCF Recommender System with PyTorch! In this project, we'll build
 
 ## 💡 Contributing
 
-Contributions are welcome! If you've found a typo, want to add more content, or improve something, feel free to open an issue or submit a pull request.
+Contributions are welcome! If you find a typo, want to add more content, or improve something, feel free to open an issue or submit a pull request.
 
 Happy learning! 🚀
