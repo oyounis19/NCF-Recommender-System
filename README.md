@@ -15,7 +15,7 @@ Welcome to the NCF Recommender System with PyTorch! In this project, An end-to-e
 
 ![Adjusted NCF](app/model/utils/img/NCF.png)
 
-- The adjusted architecture of NCF enables the input of the user/item features besides the user/item IDs.
+- Our adjusted architecture of NCF enables the input of the user/item features besides the user/item IDs.
 
 - A recommender system is not just a ranking model, but a pipeline: Items Retrieval, Filtering, Ranking, and Ordering. (Detailed explanation in the notebook)
 
