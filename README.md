@@ -2,6 +2,15 @@
 
 Welcome to the NCF Recommender System with PyTorch! In this project, we'll build an end-to-end Recommender System using an adjusted version of Neural Collaborative Filtering (NCF) with PyTorch. We'll train the model on the [MovieLens-1M](https://grouplens.org/datasets/movielens/1m/) dataset 🎥 and serve it using FastAPI 🚀.
 
+## Try it out!
+
+Website: [https://ncf-recommender.herokuapp.com/](https://ncf-recommender.herokuapp.com/)
+API: [https://ncf-recommender.herokuapp.com/docs](https://ncf-recommender.herokuapp.com/docs)
+
+## 📝 Notebook on Kaggle
+
+- [NCF Recommender System with PyTorch: A Deep Dive](https://www.kaggle.com/code/oyounis/ncf-recommender-system)
+
 ## 🌐 Overview
 
 - The adjusted architecture of NCF enables the input of the user/item features besides the user/item IDs.
@@ -9,10 +18,6 @@ Welcome to the NCF Recommender System with PyTorch! In this project, we'll build
   ![Adjusted NCF](app/model/utils/img/NCF.png)
 
 - A recommender system is not just a ranking model, but a pipeline: Items Retrieval, Filtering, Ranking, and Ordering. (All explained in the notebook)
-
-## Try it out!
-
-Website: [https://ncf-recommender.herokuapp.com/](https://ncf-recommender.herokuapp.com/)
 
 ## 📚 Project Structure
 
