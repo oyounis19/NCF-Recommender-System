@@ -4,18 +4,18 @@ Welcome to the NCF Recommender System with PyTorch! In this project, we'll build
 
 ## Try it out!
 
-Website: [https://ncf-recommender.herokuapp.com/](https://ncf-recommender.herokuapp.com/)
-API: [https://ncf-recommender.herokuapp.com/docs](https://ncf-recommender.herokuapp.com/docs)
+- Website: [https://ncf-recommender.herokuapp.com/](https://ncf-recommender.herokuapp.com/)
+- API: [https://ncf-recommender.herokuapp.com/docs](https://ncf-recommender.herokuapp.com/docs)
 
-## 📝 Notebook on Kaggle
+## Notebook on Kaggle
 
 - [NCF Recommender System with PyTorch: A Deep Dive](https://www.kaggle.com/code/oyounis/ncf-recommender-system)
 
 ## 🌐 Overview
 
-- The adjusted architecture of NCF enables the input of the user/item features besides the user/item IDs.
+![Adjusted NCF](app/model/utils/img/NCF.png)
 
-  ![Adjusted NCF](app/model/utils/img/NCF.png)
+- The adjusted architecture of NCF enables the input of the user/item features besides the user/item IDs.
 
 - A recommender system is not just a ranking model, but a pipeline: Items Retrieval, Filtering, Ranking, and Ordering. (All explained in the notebook)
 
