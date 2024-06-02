@@ -28,6 +28,12 @@ Website: [https://ncf-recommender.herokuapp.com/](https://ncf-recommender.heroku
     - `data/`: Processed data for inference.
     - `weights/`: Pretrained models weights for inference.
 
+# References
+
+- [He, X., Liao, L., Zhang, H., Nie, L., Hu, X., & Chua, T. S. (2017). Neural collaborative filtering.](https://arxiv.org/abs/1708.05031)
+- [Medium: Recommender Systems, Not Just a Recommender Models](https://medium.com/nvidia-merlin/recommender-systems-not-just-recommender-models-485c161c755e)
+- [MovieLens-1M](https://grouplens.org/datasets/movielens/1m/)
+
 ## 💡 Contributing
 
 Contributions are welcome! If you've found a typo, want to add more content, or improve something, feel free to open an issue or submit a pull request.
