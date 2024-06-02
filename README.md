@@ -30,7 +30,7 @@ Website: [https://ncf-recommender.herokuapp.com/](https://ncf-recommender.heroku
 
 # References
 
-- [He, X., Liao, L., Zhang, H., Nie, L., Hu, X., & Chua, T. S. (2017). Neural collaborative filtering.](https://arxiv.org/abs/1708.05031)
+- [Neural collaborative filtering Paper](https://arxiv.org/abs/1708.05031)
 - [Medium: Recommender Systems, Not Just a Recommender Models](https://medium.com/nvidia-merlin/recommender-systems-not-just-recommender-models-485c161c755e)
 - [MovieLens-1M](https://grouplens.org/datasets/movielens/1m/)
 
