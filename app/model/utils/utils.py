@@ -151,16 +151,16 @@ class Utils:
         return df[cols]
 
     @staticmethod
-    def preprocess_user(user: dict, num_items: int, users: np.ndarray, weights: list[np.ndarray]=None, topk: int=3, verbose=False) -> tuple[torch.IntTensor, torch.FloatTensor, Union[list[np.ndarray], None]]:
+    def preprocess_user(user: dict, num_items: int, users: np.ndarray, weights: list[np.ndarray]=None, topk: int=3, verbose=False) -> tuple[torch.IntTensor, torch.FloatTensor, Union[list[np.ndarray], None], Union[np.ndarray, None]]:
         '''
         Preprocesses user data for model input
         '''
-        if 'age' not in user or user['age'] == None:
+        if 'age' not in user or not user['age']:
             user_ = users[user['id'] - 1]
             user_ = np.insert(user_, 0, user['id'])
             print(f"User id: {user['id']} top {topk} genres: {np.array(genre)[np.argsort(user_[-18:])[-topk:][::-1]]}") if verbose else None
             user_ = np.tile(user_, (num_items, 1))
-            return torch.IntTensor(user_[:, 0]), torch.FloatTensor(user_[:, 1:]), None
+            return torch.IntTensor(user_[:, 0]), torch.FloatTensor(user_[:, 1:]), None, np.array(genre)[np.argsort(user_[0, -18:])[-topk:][::-1]]
 
         user_ = np.zeros(31, dtype=float)
 
@@ -190,7 +190,7 @@ class Utils:
         mf_weights = weights[1][similar_users_ids].mean(axis=0)
 
         user_ = np.tile(user_, (num_items, 1))
-        return torch.IntTensor(user_[:, 0]), torch.FloatTensor(user_[:, 1:]), [mlp_weights, mf_weights]
+        return torch.IntTensor(user_[:, 0]), torch.FloatTensor(user_[:, 1:]), [mlp_weights, mf_weights], None
     
     @staticmethod
     def preprocess_items(items: pd.DataFrame) -> pd.DataFrame:
@@ -289,20 +289,19 @@ class Utils:
         return ndcg, hit_ratio
     
     @staticmethod
-    def pipeline(request: any, model: nn.Module, weights: list[np.ndarray], users: np.ndarray, movies: pd.DataFrame, movies_og: pd.DataFrame, ratings: pd.DataFrame, mode: str):
+    def pipeline(request: any, model: nn.Module, weights: list[np.ndarray], users: np.ndarray, movies: pd.DataFrame, movies_og: pd.DataFrame, ratings: pd.DataFrame, mode: str) -> tuple[list[dict], Union[np.ndarray, None]]:
         '''
         Pipeline for inference
         '''
-        num_items = 200 # Number of items to retrieve
+        num_items = 300 # Number of items to retrieve
         request = request if isinstance(request, dict) else request.model_dump()
 
         # preprocess the old user
-        user_id, user, weights = Utils.preprocess_user(
+        user_id, user, weights, top_n_genres = Utils.preprocess_user(
                                         user=request,
                                         num_items=num_items,
                                         users=users,
-                                        weights=weights,
-                                        verbose=True
+                                        weights=weights
                                         )
         user_id, user = user_id.to(model.device), user.to(model.device)
 
@@ -331,7 +330,7 @@ class Utils:
 
         movies_retrieved = movies_og[movies_og['movie_id'].isin(movie_ids.cpu().numpy())].sort_values(by='movie_id', key=lambda x: pd.Categorical(x, categories=movie_ids.cpu().numpy(), ordered=True))
 
-        return Utils.order(y_pred, movies_retrieved, mode, top_k=request['top_k']).to_dict(orient='records')
+        return Utils.order(y_pred, movies_retrieved, mode, top_k=request['top_k']).to_dict(orient='records'), top_n_genres
     
     @staticmethod
     def retrieve(movies: pd.DataFrame, user: np.ndarray, k: int, num_genres: int=3, random_state: int=42) -> pd.DataFrame:
@@ -503,3 +502,55 @@ cols_dict = {
     'users': ['user_id', 'gender', 'age', 'occupation', 'zip_code'],
     'items': ['movie_id', 'title', 'genre'],
 }
+
+css = """
+    <style>
+        .card-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: start;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #eee;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card-title {
+            font-size: 1.25em;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .card-text {
+            font-size: 1em;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: rgb(45, 38, 48);
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+    }
+    </style>
+"""
