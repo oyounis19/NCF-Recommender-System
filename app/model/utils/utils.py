@@ -293,10 +293,12 @@ class Utils:
         '''
         Pipeline for inference
         '''
-        num_items = 300 # Number of items to retrieve
+        num_items = 200 # Number of items to retrieve
+        request = request if isinstance(request, dict) else request.model_dump()
+
         # preprocess the old user
         user_id, user, weights = Utils.preprocess_user(
-                                        user=request.model_dump(),
+                                        user=request,
                                         num_items=num_items,
                                         users=users,
                                         weights=weights,
@@ -307,7 +309,7 @@ class Utils:
         movies = Utils.retrieve(
             movies=movies,
             user=user.detach().cpu().numpy(),
-            num_genres=len(request.model_dump()['genres']) if request.model_dump()['genres'] else 3,
+            num_genres=len(request['genres']) if request['genres'] else 3,
             k=num_items,
             random_state=0
         )
@@ -315,7 +317,7 @@ class Utils:
         movie_ids, movies = Utils.filter(
             movies=movies,
             ratings=ratings,
-            user_id=request.model_dump()['id']
+            user_id=request['id']
         )
         movie_ids, movies = movie_ids.to(model.device), movies.to(model.device)
 
@@ -329,7 +331,7 @@ class Utils:
 
         movies_retrieved = movies_og[movies_og['movie_id'].isin(movie_ids.cpu().numpy())].sort_values(by='movie_id', key=lambda x: pd.Categorical(x, categories=movie_ids.cpu().numpy(), ordered=True))
 
-        return Utils.order(y_pred, movies_retrieved, mode, top_k=request.model_dump()['top_k']).to_dict(orient='records')
+        return Utils.order(y_pred, movies_retrieved, mode, top_k=request['top_k']).to_dict(orient='records')
     
     @staticmethod
     def retrieve(movies: pd.DataFrame, user: np.ndarray, k: int, num_genres: int=3, random_state: int=42) -> pd.DataFrame:
@@ -358,10 +360,18 @@ class Utils:
         movies_ = []
         # Retrieve movies for each genre randomly, since we don't have movie ratings to sort by
         for g in top_n_genres:
-            movies_.append(movies[movies[g] == 1].sample(num_movies_per_genre, random_state=random_state))
+            m = movies[movies[g] == 1]
+            if m.shape[0] < num_movies_per_genre: # Check if there are enough movies for the genre
+                movies_.append(m)
+                continue
+            movies_.append(m.sample(num_movies_per_genre, random_state=random_state))                
         
         # Retrieve movies for the most popular genres
         for g in most_popular_genres:
+            m = movies[movies[g] == 1]
+            if m.shape[0] < num_movies_per_genre//3: # Check if there are enough movies for the genre
+                movies_.append(m)
+                continue
             movies_.append(movies[movies[g] == 1].sample(num_movies_per_genre//3, random_state=random_state))
 
         return pd.concat(movies_, ignore_index=True)

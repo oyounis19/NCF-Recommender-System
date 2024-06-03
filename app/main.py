@@ -1,3 +1,8 @@
+"""
+API Endpoints for the recommender system
+- Note: Used streamlit instead of FastAPI for the final version
+"""
+
 import os
 os.sys.path.append(os.path.abspath('app/model/'))
 abs_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'model/')
@@ -11,15 +16,6 @@ from utils.utils import Utils, cols_dict
 from utils.requests import Request
 
 app = FastAPI()
-
-# Allow requests from any origin
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["GET", "POST"],
-    allow_headers=["*"],
-)
 
 # These files would be in a database in a real-world scenario
 users_exp = pd.read_csv(abs_path + 'data/users_exp.csv').values
