@@ -3,14 +3,23 @@ os.sys.path.append(os.path.abspath('app/model/'))
 abs_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'model/')
 
 import pandas as pd
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 from utils.model import NCF, __model_version__
 from utils.utils import Utils, cols_dict
-
-from fastapi import FastAPI
-import uvicorn
 from utils.requests import Request
 
 app = FastAPI()
+
+# Allow requests from any origin
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
+)
 
 # These files would be in a database in a real-world scenario
 users_exp = pd.read_csv(abs_path + 'data/users_exp.csv').values
@@ -60,6 +69,3 @@ def recommend_implicit(request: Request):
 def recommend_item_to_item():
     ...
     return {"message": "Not Implemented Yet"}
-
-if __name__ == "__main__":
-    uvicorn.run("main:app", host="localhost", port=8000, reload=True)

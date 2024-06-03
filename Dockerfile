@@ -8,19 +8,19 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 # Step 1: Set the working directory
-WORKDIR /code
+WORKDIR /app
 
 # Step 2: Copy the requirements.txt file to the working directory
-COPY ./requirements.txt /code/requirements.txt
+COPY ./requirements.txt /app/requirements.txt
 
 # Step 3: Install the dependencies
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
 # Step 4: Copy the app directory to the working directory
-COPY ./app /code/app
+COPY ./app /app/app
 
 # Step 5: Run the container as a non-root user
 USER nobody
 
 # Step 6: Run uvicorn with the app
-CMD ["uvicorn", "code.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"] 

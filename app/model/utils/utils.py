@@ -3,7 +3,7 @@ import torch.nn as nn
 
 import numpy as np
 import pandas as pd
-from typing import Literal
+from typing import Literal, Union
 import matplotlib.pyplot as plt
 
 from sklearn.metrics import ndcg_score
@@ -151,7 +151,7 @@ class Utils:
         return df[cols]
 
     @staticmethod
-    def preprocess_user(user: dict, num_items: int, users: np.ndarray, weights: list[np.ndarray]=None, topk: int=3, verbose=False) -> tuple[torch.IntTensor, torch.FloatTensor, list[np.ndarray] | None]:
+    def preprocess_user(user: dict, num_items: int, users: np.ndarray, weights: list[np.ndarray]=None, topk: int=3, verbose=False) -> tuple[torch.IntTensor, torch.FloatTensor, Union[list[np.ndarray], None]]:
         '''
         Preprocesses user data for model input
         '''

@@ -22,7 +22,5 @@ coverage.xml
 .hypothesis
 .idea
 *.ipynb
-data/cleaned/explicit
-data/cleaned/implicit
-data/ml-1m
-embeddings
+ml-1m
+img/

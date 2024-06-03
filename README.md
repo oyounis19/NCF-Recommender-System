@@ -1,4 +1,4 @@
-# NCF Recommender System with PyTorch: A Deep Dive
+# NCF Recommender System with PyTorch
 
 Welcome to the NCF Recommender System with PyTorch! In this project, An end-to-end Recommender System using an adjusted version of Neural Collaborative Filtering (NCF) with PyTorch. the model is trained on the [MovieLens-1M](https://grouplens.org/datasets/movielens/1m/) dataset 🎥, served using FastAPI, hosted on Heroku 🚀.
 
