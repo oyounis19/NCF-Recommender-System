@@ -33,7 +33,7 @@ Welcome to the NCF Recommender System with PyTorch! In this project, An end-to-e
     - `data/`: Processed data for inference.
     - `weights/`: Pretrained models weights for inference.
 
-# 📖 References
+## 📖 References
 
 - [Neural collaborative filtering Paper](https://arxiv.org/abs/1708.05031)
 - [Medium: Recommender Systems, Not Just a Recommender Models](https://medium.com/nvidia-merlin/recommender-systems-not-just-recommender-models-485c161c755e)
