@@ -25,7 +25,6 @@ Welcome to the NCF Recommender System with PyTorch! In this project, An end-to-e
 
   - **main.py**: The FastAPI app to serve the model.
   - `model/`:
-    - **main.ipynb**: The main notebook containing the entire project.
     - `utils/`:
       - `model.py`: The NCF model.
       - `utils.py`: Utility functions for data processing.
